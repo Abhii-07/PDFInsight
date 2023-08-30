@@ -1,12 +1,10 @@
-# cosmos_app/serializers.py
-
 from rest_framework import serializers
-from .models import User, Chat, Message, PDFDocument, UserHistory
+from .models import PDFDocument, Chat, Message, UserHistory
 
-class UserSerializer(serializers.ModelSerializer):
+class PDFDocumentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'profile_picture', 'join_date')
+        model = PDFDocument
+        fields = '__all__'
 
 class ChatSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,11 +14,6 @@ class ChatSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = '__all__'
-
-class PDFDocumentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PDFDocument
         fields = '__all__'
 
 class UserHistorySerializer(serializers.ModelSerializer):

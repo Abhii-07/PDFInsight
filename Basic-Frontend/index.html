@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Project Cosmos</title>
+    <!-- Add a link to your preferred font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Project Cosmos</h1>
+        <!-- Dark mode toggle switch -->
+        <div class="toggle-switch">
+            <label>
+                <input type="checkbox" id="darkModeToggle">
+            </label>
+        </div>
+    </header>
+    <div class="container">
+        <!-- File upload input -->
+        <div class="file-upload">
+            <input type="file" id="pdfInput" accept=".pdf">
+            <label for="pdfInput">Upload PDF</label>
+            <div class="progress-container">
+                <progress id="progressBar" value="0" max="100"></progress>
+            </div>
+        </div>
+
+        <div class="document-details" id="documentDetails" style="display: none;">
+            <div class="document-info">
+                <p><strong>Title:</strong> <span id="documentTitle"></span></p>
+            </div>
+            <button id="removeDocument">Remove</button>
+        </div>
+
+        <!-- Chat area -->
+        <div class="chat-area">
+            <!-- Chat messages will be displayed here -->
+            <div class="messages">
+                <!-- Sample chat message -->
+                <div class="message received">
+                    <p>Sample received message</p>
+                </div>
+                <div class="message sent">
+                    <p>Sample sent message</p>
+                </div>
+            </div>
+            <!-- Input field for typing messages -->
+            <input type="text" id="messageInput" placeholder="Type a message...">
+            <!-- Send button -->
+            <button id="sendButton">Send</button>
+        </div>
+        <script>
+            // JavaScript for dark mode toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) {
+                    body.classList.add('dark-mode');
+                } else {
+                    body.classList.remove('dark-mode');
+                }
+            });
+
+            // JavaScript for handling file upload
+            const pdfInput = document.getElementById('pdfInput');
+            const progressBar = document.getElementById('progressBar');
+            const documentDetails = document.getElementById('documentDetails');
+            const documentTitle = document.getElementById('documentTitle');
+            const removeDocumentButton = document.getElementById('removeDocument');
+
+            pdfInput.addEventListener('change', handleFileUpload);
+
+            function handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (file && file.type === 'application/pdf') {
+                    // Show progress bar
+                    progressBar.style.display = 'block';
+
+                    // Create a FormData object to send the file to the server (replace with actual upload logic)
+                    const formData = new FormData();
+                    formData.append('pdf', file);
+
+                    // Simulate a progress update (remove in production)
+                    let progress = 0;
+                    const interval = setInterval(() => {
+                        progress += 10;
+                        progressBar.value = progress;
+                        if (progress === 100) {
+                            clearInterval(interval);
+                            // Hide progress bar
+                            progressBar.style.display = 'none';
+
+                            // Display document details
+                            documentDetails.style.display = 'flex';
+
+                            documentDetails.style.padding = '15px';
+
+                            // Set document title (you can retrieve this from the file)
+                            documentTitle.textContent = 'Sample Document Title';
+                            
+
+                            // Show remove button
+                            removeDocumentButton.style.display = 'block';
+                        }
+                    }, 200); // Simulated progress update every 200 milliseconds
+                } else {
+                    alert('Please upload a valid PDF file.');
+                }
+            }
+
+            // JavaScript for removing the uploaded document
+            removeDocumentButton.addEventListener('click', () => {
+                // Hide document details and remove button
+                documentDetails.style.display = 'none';
+                removeDocumentButton.style.display = 'none';
+
+                // Clear the file input
+                pdfInput.value = '';
+            });
+            // JavaScript for sending chat messages
+            const messageInput = document.getElementById('messageInput');
+            const sendButton = document.getElementById('sendButton');
+            const messagesContainer = document.querySelector('.messages');
+
+            sendButton.addEventListener('click', sendMessage);
+
+            function sendMessage() {
+                const messageText = messageInput.value.trim();
+                if (messageText !== '') {
+                    // Create a new chat message and append it to the chat area
+                    const messageDiv = document.createElement('div');
+                    messageDiv.classList.add('message', 'sent');
+                    messageDiv.innerHTML = `<p>${messageText}</p>`;
+                    messagesContainer.appendChild(messageDiv);
+
+                    // Clear the input field
+                    messageInput.value = '';
+                }
+            }
+        </script>
+</body>
+
+</html>

@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import PDFDocumentListCreateView,PDFDocumentUploadView,MessageCreateView
 
 urlpatterns = [
-    path('process_pdfs/', views.process_pdfs, name='process_pdfs'),
-    path('handle_user_input/', views.handle_user_input, name='handle_user_input'),
-    # Add more URL patterns for additional views and endpoints as needed
+    path('pdfs/', PDFDocumentListCreateView.as_view(), name='pdf-list-create'),
+    path('pdfs/upload/', PDFDocumentUploadView.as_view(), name='pdf-upload'),
+    path('messages/create/', MessageCreateView.as_view(), name='message-create'),
+    # Define URLs for Chat, Message, and UserHistory views
 ]
-

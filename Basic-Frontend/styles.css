@@ -1,0 +1,192 @@
+  /* Define CSS styles for the light mode */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Define CSS styles for the dark mode */
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Header styles */
+header {
+    background-color: #007BFF;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: #fff;
+}
+
+/* Toggle switch styles */
+.toggle-switch {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-switch label {
+    position: relative;
+    margin: 0;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toggle-switch label:before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #fff;
+    top: 1px;
+    left: 1px;
+    transition: transform 0.3s;
+}
+
+.toggle-switch input[type="checkbox"] {
+    display: none;
+}
+
+/* Style for checked (dark mode) state */
+.toggle-switch input[type="checkbox"]:checked + label {
+    background-color: #333;
+}
+
+.toggle-switch input[type="checkbox"]:checked + label:before {
+    transform: translateX(20px);
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: #fff; /* Background color for the container */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* Style for the file upload input */
+.file-upload {
+    margin-bottom: 20px;
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload label {
+    display: block;
+    padding: 10px 15px;
+    background-color: #007BFF; /* Button background color */
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Chat area styles */
+.chat-area {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Chat message styles */
+.messages {
+    max-height: 300px; /* Set a maximum height for the message container */
+    overflow-y: auto; /* Enable vertical scrolling if messages overflow */
+    padding-right: 10px; /* Add a bit of padding for the scrollbar */
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.message.sent {
+    background-color: #007BFF; /* Sent message background color */
+    color: #fff;
+    text-align: right;
+}
+
+.message.received {
+    background-color: #f0f0f0; /* Received message background color */
+}
+
+/* Input field and send button styles */
+#messageInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#sendButton {
+    display: block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007BFF; /* Send button background color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#sendButton:hover {
+    background-color: #0056b3; /* Change color on hover */
+}
+
+
+/* Adjust the CSS for the progress bar and its container */
+.progress-container {
+    width: 100%; /* Match the width of the container */
+    display: flex;
+    align-items: center;
+}
+
+/* Make the progress bar take up the available width */
+progress {
+    flex-grow: 1;
+    width: 100%;
+}
+
+.document-details {
+    display: flex;
+    align-items: center; /* Center items vertically */
+}
+
+/* Style for the document title */
+.document-info {
+    flex-grow: 1; /* Allow the document title to grow and take available space */
+}
+
+/* Style for the remove button */
+#removeDocument {
+    background-color: #dc3545; /* Button background color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+#removeDocument:hover {
+    background-color: #c82333; /* Change color on hover */
+}
