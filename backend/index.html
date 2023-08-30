@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload PDF Document</h2>
+        <form id="pdfForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+            <label for="file">Select PDF:</label>
+            <input type="file" id="file" name="file" accept=".pdf" required><br><br>
+            <button type="submit">Upload</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        const pdfForm = document.getElementById('pdfForm');
+        const message = document.getElementById('message');
+
+        pdfForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(pdfForm);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/process_pdfs/', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    message.textContent = 'PDF document uploaded successfully.';
+                    message.style.color = 'green';
+                } else {
+                    const data = await response.json();
+                    message.textContent = data.detail || 'An error occurred.';
+                    message.style.color = 'red';
+                }
+            } catch (error) {
+                message.textContent = 'An error occurred.';
+                message.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
