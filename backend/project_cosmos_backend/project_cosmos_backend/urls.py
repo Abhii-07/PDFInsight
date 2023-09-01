@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('cosmos_app.urls')),  # Include your app's URLs
+    path('api/', include('pdfchat.urls')),
+]
 
 # Serve media files during development (for uploaded images, etc.)
 if settings.DEBUG:

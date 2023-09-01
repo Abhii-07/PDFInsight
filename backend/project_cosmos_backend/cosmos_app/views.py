@@ -2,7 +2,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import json
-from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
@@ -20,27 +19,26 @@ embeddings = OpenAIEmbeddings()
 
 @csrf_exempt
 @require_POST
-def upload_pdf(request):
+def upload_text(request):
     global vectorstore, conversation_chain
 
-    # Check if a PDF file has been uploaded
-    pdf_file = request.FILES.get('pdf_file')
-    if pdf_file:
-        # Process the uploaded PDF file (customize as needed)
-        pdf_text = process_pdf(pdf_file)
-        
+    # Check if text data has been provided in the request
+    request_data = json.loads(request.body.decode('utf-8'))
+    pdf_text = request_data.get('pdf_text', '')
+
+    if pdf_text:
         # Split text into chunks
         text_chunks = split_text_into_chunks(pdf_text)
-        
+
         # Create or update the vectorstore
         vectorstore = create_or_update_vectorstore(text_chunks)
-        
+
         # Create a new conversation chain
         conversation_chain = create_conversation_chain(vectorstore)
-        
-        return JsonResponse({'message': 'PDF uploaded successfully'})
+
+        return JsonResponse({'message': 'Text uploaded successfully'})
     else:
-        return JsonResponse({'error': 'No PDF file found in the request'}, status=400)
+        return JsonResponse({'error': 'No text data found in the request'}, status=400)
 
 @csrf_exempt
 @require_POST
@@ -57,13 +55,7 @@ def semantic_search(request):
     else:
         return JsonResponse({'error': 'No user query provided'}, status=400)
 
-def process_pdf(pdf_file):
-    # Customize this function to process the uploaded PDF file (e.g., text extraction)
-    pdf_reader = PdfReader(pdf_file)
-    pdf_text = ""
-    for page in pdf_reader.pages:
-        pdf_text += page.extract_text()
-    return pdf_text
+# The rest of your code remains unchanged
 
 def split_text_into_chunks(text):
     text_splitter = CharacterTextSplitter(
