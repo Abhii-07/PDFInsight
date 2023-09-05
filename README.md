@@ -1,52 +1,42 @@
-# PDFInsight
+# PDF Chat App
 
 ## Introduction
-A brief introduction of your project goes here. You may want to cover the purpose of your project, its core functionality, and what problems it solves.
 
-## Deplolyed App
-https://deployed-site.whatever
+The PDF Chat App is a web-based application that allows users to have interactive conversations with their PDF documents. It utilizes advanced language models to understand user queries and provide real-time responses based on the content of the uploaded PDFs.
 
-## Video Walkthrough of the project
+## Deployed App
+
+[Link to Deployed App](https://your-deployed-app-url.com)
+
+## Video Walkthrough of the Project
+
+[Link to Video Walkthrough](https://link-to-video-walkthrough.com)
 
 ## Features
-List out the key features of your application.
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Natural Language Queries: Ask questions in plain English and receive accurate responses.
+- Multi-Document Support: Chat with multiple PDFs simultaneously.
+- Real-time Responses: Get answers instantly as you interact with your documents.
 
-## design decisions or assumptions
-List your design desissions & assumptions
+## Design Decisions and Assumptions
 
-## Installation & Getting started
-Detailed instructions on how to install, configure, and get the project running.
+- **Security**: We prioritize data security and follow best practices to protect user information and documents.
+- **Language Models**: The app leverages advanced language models like ChatGPT to enhance document interaction.
+- **PDF Support**: The app supports various types of PDFs, including text-based PDFs and those with images.
 
-```bash
-npm install my-project
-cd my-project
-npm start
-```
+## Installation & Getting Started
 
-## Usage
-Provide instructions and examples on how to use your project.
+To install and run the PDF Chat App locally, follow these steps:
 
 ```bash
-# Example
-```
+# Clone the repository
+git clone https://github.com/your-username/pdf-chat-app.git
 
-Include screenshots as necessary.
+# Navigate to the project directory
+cd pdf-chat-app
 
-## APIs Used
-If your application relies on external APIs, document them and include any necessary links or references.
+# Install dependencies
+pip install -r requirements.txt
 
-## API Endpoints
-In case of Backend Applications provide a list of your API endpoints, methods, brief descriptions, and examples of request/response.
-GET /api/items - retrieve all items
-POST /api/items - create a new item
-
-
-## Technology Stack
-List and provide a brief overview of the technologies used in the project.
-
-- Django
-- HTML/CSS/JavaScript
+# Run the app
+python app.py
