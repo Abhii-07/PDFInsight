@@ -4,9 +4,7 @@
 
 The PDF Chat App is a web-based application that allows users to have interactive conversations with their PDF documents. It utilizes advanced language models to understand user queries and provide real-time responses based on the content of the uploaded PDFs.
 
-## Deployed App
-
-[Link to Deployed App](https://your-deployed-app-url.com)
+![Screenshot (268)](https://github.com/Abhii-07/PDFInsight/assets/97459166/faa469de-5de7-49ae-941a-205417e57536)
 
 ## Video Walkthrough of the Project
 
