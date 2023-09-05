@@ -12,76 +12,161 @@ from langchain.llms import HuggingFaceHub
 import mysql.connector
 import bcrypt
 
+
+
 # Define a function for the home page
 def home_page():
-    st.title("PDF Chat App")
+    st.title("PDF Chat App 🤖")
     st.write("Welcome to the PDF Chat App!")
 
-    st.header("Chat with Your PDFs")
+    st.header("Chat with Your PDFs 📚")
     st.write("The PDF Chat App allows you to have a conversation with your PDF documents. "
              "You can ask questions, seek information, and get instant responses from your PDFs "
-             "using plain language queries.")
+             "using plain language queries. 💬")
 
-    st.header("How It Works")
+    st.header("How It Works 🧠")
     st.write("Our application utilizes state-of-the-art language models to understand your queries "
              "and retrieve relevant information from your PDF files. It's like having a smart assistant "
-             "for your documents!")
+             "for your documents! 📄🤖")
 
-    st.header("Key Features")
-    st.markdown("- **Natural Language Queries:** Ask questions in plain English, and the app will understand."
-                "\n- **Multi-Document Support:** Chat with multiple PDFs at the same time."
-                "\n- **Real-time Responses:** Get answers instantly as you chat with your documents.")
+    st.header("Key Features 🚀")
+    st.markdown("- **Natural Language Queries:** Ask questions in plain English, and the app will understand. 🗣️"
+                "\n- **Multi-Document Support:** Chat with multiple PDFs at the same time. 📚📚"
+                "\n- **Real-time Responses:** Get answers instantly as you chat with your documents. ⏱️")
 
-    st.header("Benefits")
-    st.markdown("- **Efficiency:** Save time by quickly finding information in your PDFs."
-                "\n- **Accessibility:** Make your PDF content more accessible and user-friendly.")
+    st.header("Benefits 🌟")
+    st.markdown("- **Efficiency:** Save time by quickly finding information in your PDFs. ⏳"
+                "\n- **Accessibility:** Make your PDF content more accessible and user-friendly. ♿")
 
-    st.header("Language Models (LLMs)")
+    st.header("Language Models (LLMs) 🤯")
     st.write("Our app harnesses the power of advanced language models, including ChatGPT, "
-             "to enhance your document interaction experience.")
+             "to enhance your document interaction experience. 💪")
 
-    st.header("Security")
-    st.write("We prioritize the security of your data and documents. Rest assured that your information is safe with us.")
+    st.header("Security 🔒")
+    st.write("We prioritize the security of your data and documents. Rest assured that your information is safe with us. 🛡️")
 
-    st.header("Getting Started")
+    st.header("Getting Started 🚀")
     st.write("1. Sign in or register to access the app."
              "\n2. Upload your PDFs to start chatting with them."
-             "\n3. Ask questions and enjoy instant responses!")
+             "\n3. Ask questions and enjoy instant responses! 📥🗨️")
 
-    st.header("FAQs")
+    st.header("FAQs ❓")
     # FAQ accordion
     with st.expander("How do I sign in or register?"):
         st.write("To sign in, click on the 'Sign In' page and enter your username and password. "
-                 "If you don't have an account, you can register on the 'Sign Up' page.")
+                 "If you don't have an account, you can register on the 'Sign Up' page. 📝🔐")
 
     with st.expander("What types of PDFs are supported?"):
         st.write("The app supports a wide range of PDF documents, including text-based PDFs and those with images. "
-                 "It can extract text and provide responses based on the content of your PDFs.")
+                 "It can extract text and provide responses based on the content of your PDFs. 📄🖼️")
 
     with st.expander("How accurate are the responses?"):
         st.write("The accuracy of responses depends on the content and quality of your PDFs. "
-                 "The app uses advanced language models to provide the best possible answers.")
+                 "The app uses advanced language models to provide the best possible answers. 📈🧐")
 
     with st.expander("Is my data stored securely?"):
         st.write("Yes, we take data security seriously. Your data and documents are stored securely, "
-                 "and we follow best practices to protect your information.")
+                 "and we follow best practices to protect your information. 🔒🏢")
 
-    st.header("Contact Us")
-    st.write("If you have any questions or feedback, please feel free to [contact our support team](mailto:support@example.com).")
+    st.header("Contact Us 📧")
+    st.write("If you have any questions or feedback, please feel free to [contact our support team](mailto:support@example.com). 📩🙋‍♂️")
 
 # Define a function for the Sign In tab
+# Initialize the MySQL connection
+db_config = {
+    "host": "localhost",
+    "user": "root",
+    "password": "root",
+    "database": "pdfchat"
+}
+
+# cursor = mydb.cursor()
+
+# Create the users table if it doesn't exist
+def create_user_table():
+    try:
+        # Connect to the MySQL database
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                username VARCHAR(255) NOT NULL UNIQUE,
+                password VARCHAR(255) NOT NULL
+            )
+        ''')
+        conn.commit()
+        conn.close()
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+
+
+# Define a function for the Sign In page
+# Define a function for the Sign In page
 def sign_in_page():
     st.title("Sign In")
+
+    # Initialize the MySQL connection
+    db_config = {
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "database": "pdfinsights"
+    }
+
+    # Create a cursor for database operations
+    cursor = None
+
+    # Sign In form
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
-    if st.button("Sign In"):
-        # Here, you can check the username and password.
-        # For simplicity, we'll use a hardcoded username and password.
-        if username == "user" and password == "password":
-            st.success("Successfully logged in!")
-            st.session_state.is_authenticated = True
-        else:
-            st.error("Invalid credentials!")
+    
+    try:
+        # Connect to the MySQL database
+        conn = mysql.connector.connect(**db_config)
+        cursor = conn.cursor()
+
+        if st.button("Sign In"):
+            # Verify user credentials with MySQL
+            cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if user and bcrypt.checkpw(password.encode('utf-8'), user[2].encode('utf-8')):
+                st.success("Successfully logged in!")
+                st.session_state.is_authenticated = True
+            else:
+                st.error("Invalid credentials!")
+
+        # Sign Up button that opens the Sign Up form
+        if st.button("Sign Up"):
+            st.session_state.show_sign_up = True
+
+        # Show Sign Up form if the button is clicked
+        if st.session_state.get("show_sign_up"):
+            st.title("Sign Up")
+            new_username = st.text_input("New Username")
+            new_password = st.text_input("New Password", type="password")
+            confirm_password = st.text_input("Confirm Password", type="password")
+            if new_password == confirm_password and st.button("Register"):
+                # Hash the new password
+                hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+                # Store the new user in MySQL
+                cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (new_username, hashed_password))
+                conn.commit()
+
+                st.success("Successfully registered and logged in!")
+                st.session_state.is_authenticated = True
+            elif new_password != confirm_password:
+                st.error("Passwords do not match!")
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+    finally:
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
 
 
 def get_pdf_text(pdf_docs):
@@ -127,8 +212,6 @@ chat_history = []
 # Define a function for the chat page
 # Define a function for the chat page
 def chat_page():
-    st.header("Chat with PDF 💬")
-
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
 
@@ -194,6 +277,7 @@ load_dotenv()
 # Main function
 def main():
     page = navigation_bar()
+    create_user_table()
 
     if page == "Home":
         home_page()
