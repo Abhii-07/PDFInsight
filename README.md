@@ -30,13 +30,13 @@ To install and run the PDF Chat App locally, follow these steps:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/pdf-chat-app.git
+git clone https://github.com/Abhii-07/PDFInsight
 
 # Navigate to the project directory
-cd pdf-chat-app
+cd PDFInsight
 
 # Install dependencies
 pip install -r requirements.txt
 
 # Run the app
-python app.py
+python hello.py
