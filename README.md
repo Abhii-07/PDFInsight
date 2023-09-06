@@ -31,7 +31,7 @@ To install and run the PDF Chat App locally, follow these steps:
 git clone https://github.com/Abhii-07/PDFInsight
 
 # Navigate to the project directory
-cd PDFInsight
+cd PDFInsight/chatpdf-app
 
 # Install dependencies
 pip install -r requirements.txt
