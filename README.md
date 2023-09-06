@@ -8,7 +8,7 @@ The PDF Chat App is a web-based application that allows users to have interactiv
 
 ## Video Walkthrough of the Project
 
-[Link to Video Walkthrough](https://link-to-video-walkthrough.com)
+[Link to Video Walkthrough](https://youtu.be/lNYOAZLVvaA)
 
 ## Features
 
